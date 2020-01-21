@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <title>Tous les chemins mènent à la philosophie</title>
+  </head>
+  <body>
+
+ <header>
+      <div class="centercolumn">
+           {% block header %}
+              <h1>Tous les chemins mènent à la philosophie</h1>
+           {% endblock %}
+      </div>
+ </header>
+
+    {% with msg_erreur = get_flashed_messages(category_filter=["erreur"]), 
+            msg_succes = get_flashed_messages(category_filter=["succes"]) %}
+
+    <div id="message" {% if msg_erreur or msg_succes  %} style="visibility: visible" {% endif %} >
+        
+            {% if msg_erreur %}
+                <ul class="msg_erreur">
+                {% for m in msg_erreur %}
+                    <li  >{{ m }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %} 
+
+            {% if msg_succes %}
+                <ul class="msg_succes">
+                {% for m in msg_succes %}
+                    <li " >{{ m }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %} 
+
+    </div>
+
+    {% endwith %}
+
+    <div id="main">
+        {% block body %}
+          {# Début du bloc "body", dont vous devez modifier le contenu #}
+          
+          <div class="form-style-5">
+            <form action="/new-game" method="post">
+            <fieldset>
+            <legend><span class="number">1</span> Débuter</legend>
+            <input type="text" name="title" id="titleId" placeholder="Nom de l'article *">
+            </fieldset>
+            <input type="submit" value="Soumettre" />
+            </form>
+          </div>
+
+          {# Fin du bloc "body" #}
+        {% endblock %}
+    </div>
+
+    <footer>
+      <div class="">
+        {% block footer %}
+         &copy; 2017 Eric FOKOU - eric.fokoudzokou@telecom-paristech.fr
+        {% endblock %}
+      </div>
+    </footer>
+    <!-- script for radio button -->
+    <script>
+      
+      var currentId = "labelChoice_1";
+
+      function handleClick(myRadio) {
+
+         document.getElementById("labelChoice_"+ myRadio.id.split("_")[1]).className = 'labelchecked';
+         document.getElementById("labelChoice_"+ currentId.split("_")[1]).className = 'radio';
+          
+         currentId = myRadio.id;
+      }
+      
+    </script>
+  </body>
+</html>

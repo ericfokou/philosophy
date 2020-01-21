@@ -1,0 +1,34 @@
+{% extends "index.html" %}
+
+ {% block header %}
+ <a href="/">
+ 	<h1>Article courant: {{ currentTitle }}</h1>
+ 	<h3>SCORE: {{ session.score }} &nbsp;&nbsp; - &nbsp;&nbsp; Article initial: {{ session.article_redirect }}</h1>
+  	<!-- <h3></h3> -->
+  </a>
+ {% endblock %}
+
+
+{% block body %}
+
+  		<div class="form-style-5">
+            <form action="/move" method="post">
+            <fieldset>
+            <legend><span class="number">2</span> Choisir un article</legend>
+
+            <input type="hidden" name="score" id="score_id" value="{{ session.score }}">
+
+            {% for item in items %}
+            	<label id="labelChoice_{{loop.index}}"  {% if loop.first %} class="labelchecked" {% else %} class="radio" {% endif %} for="linkChoice_{{loop.index}}">
+			        <input type="radio" name="linkChoice" id="linkChoice_{{loop.index}}" value="{{ item }}" onclick="handleClick(this);" {% if loop.first %} checked="checked" {% endif %}>
+			        {{ item }}
+			    </label>
+    		{% endfor %}
+            </fieldset>
+            <input type="submit" value="Soumettre" />
+            </form>
+         </div>
+
+
+
+{% endblock %}
